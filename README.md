@@ -264,6 +264,7 @@ export default function ResponsiveScreen() {
     </View>
   );
 }
+```
 
 ## Contributing
 
@@ -272,4 +273,3 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 ## License
 
 MIT
-```
