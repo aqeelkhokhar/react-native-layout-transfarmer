@@ -1,9 +1,9 @@
 # react-native-layout-transfarmer
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/screenshots/screenshot1.png" alt="Screenshot 1" width="250" />
-  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/screenshots/screenshot2.png" alt="Screenshot 2" width="250" />
-  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/screenshots/screenshot3.png" alt="Screenshot 3" width="250" />
+  <img src="https://cdn.jsdelivr.net/npm/react-native-layout-transfarmer@latest/screenshots/screenshot1.png" alt="Screenshot 1" width="250" />
+  <img src="https://cdn.jsdelivr.net/npm/react-native-layout-transfarmer@latest/screenshots/screenshot2.png" alt="Screenshot 2" width="250" />
+  <img src="https://cdn.jsdelivr.net/npm/react-native-layout-transfarmer@latest/screenshots/screenshot3.png" alt="Screenshot 3" width="250" />
 </div>
 
 Cross-device layout scaling and transformation utilities for React Native. Design once, scale everywhere.
