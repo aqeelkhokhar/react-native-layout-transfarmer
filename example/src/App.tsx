@@ -74,47 +74,83 @@ export default function App() {
     width: number,
     height: number,
     label: string,
-    borderRadius: number
+    borderRadius: number,
+    isSource: boolean
   ) => (
-    <View style={[styles.viewport, { width, height }]}>
-      <View style={styles.viewportHeader}>
-        <Text style={styles.viewportLabel}>{label}</Text>
-        <Text style={styles.viewportSize}>
-          {Math.round(width)}×{Math.round(height)}
-        </Text>
-      </View>
-      <View style={styles.viewportContent}>
-        {elements.map((el, index) => {
-          const sourceEl = SOURCE_ELEMENTS[index]!;
-          return (
-            <View
-              key={el.id}
-              style={[
-                styles.element,
-                {
-                  left: el.x,
-                  top: el.y,
-                  width: el.width,
-                  height: el.height,
-                  backgroundColor: sourceEl.color,
-                  borderRadius: borderRadius,
-                },
-              ]}
-            >
-              <Text style={[styles.elementLabel, { fontSize: fonts.caption }]}>
-                {sourceEl.label}
-              </Text>
-              <Text
+    <View
+      style={[
+        styles.viewportWrapper,
+        isSource ? styles.sourceWrapper : styles.destWrapper,
+      ]}
+    >
+      <Text
+        style={[
+          styles.viewportTitle,
+          isSource ? styles.sourceTitle : styles.destTitle,
+        ]}
+      >
+        {isSource ? 'Source' : 'Destination'}
+      </Text>
+      <View
+        style={[
+          styles.viewport,
+          { width, height },
+          isSource ? styles.sourceViewport : styles.destViewport,
+        ]}
+      >
+        <View
+          style={[
+            styles.viewportHeader,
+            isSource ? styles.sourceHeader : styles.destHeader,
+          ]}
+        >
+          <Text
+            style={[
+              styles.viewportLabel,
+              isSource ? styles.sourceLabel : styles.destLabel,
+            ]}
+          >
+            {label}
+          </Text>
+          <Text style={styles.viewportSize}>
+            {Math.round(width)}×{Math.round(height)}
+          </Text>
+        </View>
+        <View style={styles.viewportContent}>
+          {elements.map((el, index) => {
+            const sourceEl = SOURCE_ELEMENTS[index]!;
+            return (
+              <View
+                key={el.id}
                 style={[
-                  styles.elementSize,
-                  { fontSize: Math.max(fonts.caption - 2, 6) },
+                  styles.element,
+                  {
+                    left: el.x,
+                    top: el.y,
+                    width: el.width,
+                    height: el.height,
+                    backgroundColor: sourceEl.color,
+                    borderRadius: borderRadius,
+                  },
                 ]}
               >
-                {Math.round(el.width)}×{Math.round(el.height)}
-              </Text>
-            </View>
-          );
-        })}
+                <Text
+                  style={[styles.elementLabel, { fontSize: fonts.caption }]}
+                >
+                  {sourceEl.label}
+                </Text>
+                <Text
+                  style={[
+                    styles.elementSize,
+                    { fontSize: Math.max(fonts.caption - 2, 6) },
+                  ]}
+                >
+                  {Math.round(el.width)}×{Math.round(el.height)}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
       </View>
     </View>
   );
@@ -196,16 +232,18 @@ export default function App() {
                 SOURCE_FONTS,
                 SOURCE_WIDTH,
                 SOURCE_HEIGHT,
-                'SOURCE (Original)',
-                8
+                'Original',
+                8,
+                true
               )}
               {renderViewport(
                 transformedElements,
                 scaledFonts,
                 destinationWidth,
                 destinationHeight,
-                'DESTINATION (Scaled)',
-                scaledBorderRadius
+                'Scaled',
+                scaledBorderRadius,
+                false
               )}
             </View>
 

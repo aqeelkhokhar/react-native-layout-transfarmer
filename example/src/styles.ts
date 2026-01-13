@@ -14,6 +14,10 @@ export const COLORS = {
   white: '#FFFFFF',
   textMuted: '#94A3B8',
   textDark: '#64748B',
+  sourceBackground: '#1a2744',
+  destBackground: '#2d1f3d',
+  sourceBorder: '#3b82f6',
+  destBorder: '#a855f7',
 };
 
 export const styles = StyleSheet.create({
@@ -121,28 +125,82 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    gap: 12,
+    gap: 16,
     marginBottom: 16,
     flexWrap: 'wrap',
   },
+  viewportWrapper: {
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 16,
+  },
+  sourceWrapper: {
+    backgroundColor: '#0a1628',
+    borderWidth: 2,
+    borderColor: '#2563eb',
+    shadowColor: '#3b82f6',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  destWrapper: {
+    backgroundColor: '#1e0a2e',
+    borderWidth: 2,
+    borderColor: '#9333ea',
+    shadowColor: '#a855f7',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  viewportTitle: {
+    fontSize: 12,
+    fontWeight: '700',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  sourceTitle: {
+    color: '#60a5fa',
+  },
+  destTitle: {
+    color: '#c084fc',
+  },
   viewport: {
-    backgroundColor: COLORS.cardDark,
     borderRadius: 8,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    borderWidth: 2,
+  },
+  sourceViewport: {
+    backgroundColor: '#0f2847',
+    borderColor: '#3b82f6',
+  },
+  destViewport: {
+    backgroundColor: '#2a1245',
+    borderColor: '#a855f7',
   },
   viewportHeader: {
-    backgroundColor: COLORS.card,
     paddingVertical: 4,
     paddingHorizontal: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  sourceHeader: {
+    backgroundColor: '#1d4ed8',
+  },
+  destHeader: {
+    backgroundColor: '#7c3aed',
+  },
   viewportLabel: {
     fontSize: 9,
     fontWeight: '700',
-    color: COLORS.primary,
+  },
+  sourceLabel: {
+    color: '#ffffff',
+  },
+  destLabel: {
+    color: '#ffffff',
   },
   viewportSize: {
     fontSize: 9,
@@ -172,6 +230,16 @@ export const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 12,
     width: '100%',
+  },
+  sourceInfoCard: {
+    backgroundColor: '#0c1929',
+    borderWidth: 1,
+    borderColor: '#1e3a5f',
+  },
+  destInfoCard: {
+    backgroundColor: '#1a0f29',
+    borderWidth: 1,
+    borderColor: '#3d2a5c',
   },
   infoTitle: {
     fontSize: 14,

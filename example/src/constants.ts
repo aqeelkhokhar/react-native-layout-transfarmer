@@ -69,6 +69,5 @@ export const SOURCE_FONTS = {
 export const PRESET_SIZES = [
   { label: 'Same', w: SOURCE_WIDTH, h: SOURCE_HEIGHT },
   { label: '50%', w: SOURCE_WIDTH * 0.5, h: SOURCE_HEIGHT * 0.5 },
-  { label: '150%', w: SOURCE_WIDTH * 1.5, h: SOURCE_HEIGHT * 1.5 },
-  { label: 'Tall', w: SOURCE_WIDTH, h: SOURCE_HEIGHT * 1.5 },
+  { label: '75%', w: SOURCE_WIDTH * 0.75, h: SOURCE_HEIGHT * 0.75 },
 ];
