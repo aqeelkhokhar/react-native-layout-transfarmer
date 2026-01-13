@@ -1,6 +1,6 @@
 {
   "name": "react-native-layout-transfarmer",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Cross-device layout scaling and transformation utilities for React Native. ",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",

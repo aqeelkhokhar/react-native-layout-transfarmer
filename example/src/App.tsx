@@ -7,7 +7,9 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Animated,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   calculateAspectRatio,
@@ -18,7 +20,7 @@ import {
   scaleUniform,
 } from 'react-native-layout-transfarmer';
 
-import { styles } from './styles';
+import { styles, COLORS } from './styles';
 import {
   SOURCE_WIDTH,
   SOURCE_HEIGHT,
@@ -157,221 +159,259 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          style={styles.flex}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
-          <ScrollView
-            style={styles.scrollView}
-            contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
+      <LinearGradient
+        colors={[
+          COLORS.mainGradientStart,
+          COLORS.mainGradientMiddle,
+          COLORS.mainGradientEnd,
+        ]}
+        style={styles.container}
+      >
+        <SafeAreaView style={styles.flex}>
+          <KeyboardAvoidingView
+            style={styles.flex}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           >
-            <Text style={styles.title}>Layout Transfarmer</Text>
-            <Text style={styles.subtitle}>Interactive Scaling Demo</Text>
+            <ScrollView
+              style={styles.scrollView}
+              contentContainerStyle={styles.scrollContent}
+              keyboardShouldPersistTaps="handled"
+            >
+              <Text style={styles.title}>Layout Transfarmer</Text>
+              <Text style={styles.subtitle}>Interactive Scaling Demo</Text>
 
-            <View style={styles.inputCard}>
-              <Text style={styles.inputTitle}>Destination Size</Text>
-              <View style={styles.inputRow}>
-                <View style={styles.inputGroup}>
-                  <Text style={styles.inputLabel}>Width</Text>
-                  <TextInput
-                    style={styles.input}
-                    value={destWidth}
-                    onChangeText={setDestWidth}
-                    keyboardType="numeric"
-                    selectTextOnFocus
-                  />
-                </View>
-                <Text style={styles.inputX}>×</Text>
-                <View style={styles.inputGroup}>
-                  <Text style={styles.inputLabel}>Height</Text>
-                  <TextInput
-                    style={styles.input}
-                    value={destHeight}
-                    onChangeText={setDestHeight}
-                    keyboardType="numeric"
-                    selectTextOnFocus
-                  />
-                </View>
-              </View>
-
-              <View style={styles.presetRow}>
-                {PRESET_SIZES.map((preset) => (
-                  <TouchableOpacity
-                    key={preset.label}
-                    style={[
-                      styles.presetButton,
-                      destinationWidth === preset.w &&
-                        destinationHeight === preset.h &&
-                        styles.presetActive,
-                    ]}
-                    onPress={() => {
-                      setDestWidth(Math.round(preset.w).toString());
-                      setDestHeight(Math.round(preset.h).toString());
-                    }}
-                  >
-                    <Text
-                      style={[
-                        styles.presetText,
-                        destinationWidth === preset.w &&
-                          destinationHeight === preset.h &&
-                          styles.presetTextActive,
-                      ]}
-                    >
-                      {preset.label}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-
-            <View style={styles.viewportsContainer}>
-              {renderViewport(
-                SOURCE_ELEMENTS,
-                SOURCE_FONTS,
-                SOURCE_WIDTH,
-                SOURCE_HEIGHT,
-                'Original',
-                8,
-                true
-              )}
-              {renderViewport(
-                transformedElements,
-                scaledFonts,
-                destinationWidth,
-                destinationHeight,
-                'Scaled',
-                scaledBorderRadius,
-                false
-              )}
-            </View>
-
-            <View style={styles.infoCard}>
-              <Text style={styles.infoTitle}>Calculated Values</Text>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Source:</Text>
-                <Text style={styles.calcValue}>
-                  {SOURCE_WIDTH}×{SOURCE_HEIGHT}
-                </Text>
-              </View>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Destination:</Text>
-                <Text style={styles.calcValue}>
-                  {destinationWidth}×{destinationHeight}
-                </Text>
-              </View>
-              <View style={styles.divider} />
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Scale X:</Text>
-                <Text style={[styles.calcValue, styles.highlight]}>
-                  {scaleX.toFixed(4)}
-                </Text>
-              </View>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Scale Y:</Text>
-                <Text style={[styles.calcValue, styles.highlight]}>
-                  {scaleY.toFixed(4)}
-                </Text>
-              </View>
-              <View style={styles.divider} />
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Source Aspect:</Text>
-                <Text style={styles.calcValue}>
-                  {sourceAspectRatio.toFixed(3)}
-                </Text>
-              </View>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Dest Aspect:</Text>
-                <Text style={styles.calcValue}>
-                  {destAspectRatio.toFixed(3)}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.infoCard}>
-              <Text style={styles.infoTitle}>Font Scaling</Text>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>
-                  Title ({SOURCE_FONTS.title}px):
-                </Text>
-                <Text style={styles.calcValue}>
-                  {scaledFonts.title.toFixed(1)}px
-                </Text>
-              </View>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>
-                  Body ({SOURCE_FONTS.body}px):
-                </Text>
-                <Text style={styles.calcValue}>
-                  {scaledFonts.body.toFixed(1)}px
-                </Text>
-              </View>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>
-                  Caption ({SOURCE_FONTS.caption}px):
-                </Text>
-                <Text style={styles.calcValue}>
-                  {scaledFonts.caption.toFixed(1)}px
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.infoCard}>
-              <Text style={styles.infoTitle}>Dimension Scaling</Text>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Padding (10px):</Text>
-                <Text style={styles.calcValue}>
-                  {scaledPadding.toFixed(1)}px
-                </Text>
-              </View>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Border Radius (8px):</Text>
-                <Text style={styles.calcValue}>
-                  {scaledBorderRadius.toFixed(1)}px
-                </Text>
-              </View>
-              <View style={styles.calcRow}>
-                <Text style={styles.calcLabel}>Uniform (100px):</Text>
-                <Text style={styles.calcValue}>
-                  {scaleUniform(
-                    100,
-                    SOURCE_WIDTH,
-                    SOURCE_HEIGHT,
-                    destinationWidth,
-                    destinationHeight
-                  ).toFixed(1)}
-                  px
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.infoCard}>
-              <Text style={styles.infoTitle}>Element Transformations</Text>
-              {SOURCE_ELEMENTS.slice(0, 3).map((src, i) => {
-                const dest = transformedElements[i]!;
-                return (
-                  <View key={src.id} style={styles.elementTransform}>
-                    <Text style={[styles.elementName, { color: src.color }]}>
-                      {src.label}
-                    </Text>
-                    <View style={styles.transformDetails}>
-                      <Text style={styles.transformText}>
-                        Pos: ({src.x}, {src.y}) → ({Math.round(dest.x)},{' '}
-                        {Math.round(dest.y)})
-                      </Text>
-                      <Text style={styles.transformText}>
-                        Size: {src.width}×{src.height} →{' '}
-                        {Math.round(dest.width)}×{Math.round(dest.height)}
-                      </Text>
-                    </View>
+              <LinearGradient
+                colors={[COLORS.cardGradientStart, COLORS.cardGradientEnd]}
+                style={styles.inputCard}
+              >
+                <Text style={styles.inputTitle}>Destination Size</Text>
+                <View style={styles.inputRow}>
+                  <View style={styles.inputGroup}>
+                    <Text style={styles.inputLabel}>Width</Text>
+                    <TextInput
+                      style={styles.input}
+                      value={destWidth}
+                      onChangeText={setDestWidth}
+                      keyboardType="numeric"
+                      selectTextOnFocus
+                    />
                   </View>
-                );
-              })}
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+                  <Text style={styles.inputX}>×</Text>
+                  <View style={styles.inputGroup}>
+                    <Text style={styles.inputLabel}>Height</Text>
+                    <TextInput
+                      style={styles.input}
+                      value={destHeight}
+                      onChangeText={setDestHeight}
+                      keyboardType="numeric"
+                      selectTextOnFocus
+                    />
+                  </View>
+                </View>
+
+                <View style={styles.presetRow}>
+                  {PRESET_SIZES.map((preset) => {
+                    const isActive =
+                      destinationWidth === preset.w &&
+                      destinationHeight === preset.h;
+                    const buttonScale = new Animated.Value(1);
+
+                    const animateButton = () => {
+                      Animated.sequence([
+                        Animated.timing(buttonScale, {
+                          toValue: 0.9,
+                          duration: 100,
+                          useNativeDriver: true,
+                        }),
+                        Animated.timing(buttonScale, {
+                          toValue: 1,
+                          duration: 100,
+                          useNativeDriver: true,
+                        }),
+                      ]).start();
+                    };
+
+                    return (
+                      <Animated.View
+                        key={preset.label}
+                        style={{
+                          transform: [{ scale: buttonScale }],
+                        }}
+                      >
+                        <TouchableOpacity
+                          style={[
+                            styles.presetButton,
+                            isActive && styles.presetActive,
+                          ]}
+                          onPress={() => {
+                            animateButton();
+                            setDestWidth(Math.round(preset.w).toString());
+                            setDestHeight(Math.round(preset.h).toString());
+                          }}
+                          activeOpacity={0.7}
+                        >
+                          <Text
+                            style={[
+                              styles.presetText,
+                              isActive && styles.presetTextActive,
+                            ]}
+                          >
+                            {preset.label}
+                          </Text>
+                        </TouchableOpacity>
+                      </Animated.View>
+                    );
+                  })}
+                </View>
+              </LinearGradient>
+
+              <View style={styles.viewportsContainer}>
+                {renderViewport(
+                  SOURCE_ELEMENTS,
+                  SOURCE_FONTS,
+                  SOURCE_WIDTH,
+                  SOURCE_HEIGHT,
+                  'Original',
+                  8,
+                  true
+                )}
+                {renderViewport(
+                  transformedElements,
+                  scaledFonts,
+                  destinationWidth,
+                  destinationHeight,
+                  'Scaled',
+                  scaledBorderRadius,
+                  false
+                )}
+              </View>
+
+              <View style={styles.infoCard}>
+                <Text style={styles.infoTitle}>Calculated Values</Text>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Source:</Text>
+                  <Text style={styles.calcValue}>
+                    {SOURCE_WIDTH}×{SOURCE_HEIGHT}
+                  </Text>
+                </View>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Destination:</Text>
+                  <Text style={styles.calcValue}>
+                    {destinationWidth}×{destinationHeight}
+                  </Text>
+                </View>
+                <View style={styles.divider} />
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Scale X:</Text>
+                  <Text style={[styles.calcValue, styles.highlight]}>
+                    {scaleX.toFixed(4)}
+                  </Text>
+                </View>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Scale Y:</Text>
+                  <Text style={[styles.calcValue, styles.highlight]}>
+                    {scaleY.toFixed(4)}
+                  </Text>
+                </View>
+                <View style={styles.divider} />
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Source Aspect:</Text>
+                  <Text style={styles.calcValue}>
+                    {sourceAspectRatio.toFixed(3)}
+                  </Text>
+                </View>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Dest Aspect:</Text>
+                  <Text style={styles.calcValue}>
+                    {destAspectRatio.toFixed(3)}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.infoCard}>
+                <Text style={styles.infoTitle}>Font Scaling</Text>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>
+                    Title ({SOURCE_FONTS.title}px):
+                  </Text>
+                  <Text style={styles.calcValue}>
+                    {scaledFonts.title.toFixed(1)}px
+                  </Text>
+                </View>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>
+                    Body ({SOURCE_FONTS.body}px):
+                  </Text>
+                  <Text style={styles.calcValue}>
+                    {scaledFonts.body.toFixed(1)}px
+                  </Text>
+                </View>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>
+                    Caption ({SOURCE_FONTS.caption}px):
+                  </Text>
+                  <Text style={styles.calcValue}>
+                    {scaledFonts.caption.toFixed(1)}px
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.infoCard}>
+                <Text style={styles.infoTitle}>Dimension Scaling</Text>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Padding (10px):</Text>
+                  <Text style={styles.calcValue}>
+                    {scaledPadding.toFixed(1)}px
+                  </Text>
+                </View>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Border Radius (8px):</Text>
+                  <Text style={styles.calcValue}>
+                    {scaledBorderRadius.toFixed(1)}px
+                  </Text>
+                </View>
+                <View style={styles.calcRow}>
+                  <Text style={styles.calcLabel}>Uniform (100px):</Text>
+                  <Text style={styles.calcValue}>
+                    {scaleUniform(
+                      100,
+                      SOURCE_WIDTH,
+                      SOURCE_HEIGHT,
+                      destinationWidth,
+                      destinationHeight
+                    ).toFixed(1)}
+                    px
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.infoCard}>
+                <Text style={styles.infoTitle}>Element Transformations</Text>
+                {SOURCE_ELEMENTS.slice(0, 3).map((src, i) => {
+                  const dest = transformedElements[i]!;
+                  return (
+                    <View key={src.id} style={styles.elementTransform}>
+                      <Text style={[styles.elementName, { color: src.color }]}>
+                        {src.label}
+                      </Text>
+                      <View style={styles.transformDetails}>
+                        <Text style={styles.transformText}>
+                          Pos: ({src.x}, {src.y}) → ({Math.round(dest.x)},{' '}
+                          {Math.round(dest.y)})
+                        </Text>
+                        <Text style={styles.transformText}>
+                          Size: {src.width}×{src.height} →{' '}
+                          {Math.round(dest.width)}×{Math.round(dest.height)}
+                        </Text>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </LinearGradient>
     </SafeAreaProvider>
   );
 }

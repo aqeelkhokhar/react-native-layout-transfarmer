@@ -1,5 +1,11 @@
 # react-native-layout-transfarmer
 
+<div align="center">
+  <img src="./screenshots/screenshot1.png" alt="Screenshot 1" width="250" />
+  <img src="./screenshots/screenshot2.png" alt="Screenshot 2" width="250" />
+  <img src="./screenshots/screenshot3.png" alt="Screenshot 3" width="250" />
+</div>
+
 Cross-device layout scaling and transformation utilities for React Native. Design once, scale everywhere.
 
 ## Problem It Solves
@@ -269,6 +275,18 @@ export default function ResponsiveScreen() {
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository.
+
+## Special Thanks
+
+Special thanks to **Sohail Muhabbat Ali** ([GitHub](https://github.com/sohail-mohabbatali)) for his invaluable contributions as an Engineering Manager in developing this package. His guidance and expertise were instrumental in bringing this project to fruition.
+
+## Support
+
+If you find this package helpful, consider buying me a coffee!
+
+<a href="https://www.buymeacoffee.com/yourname" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="160" />
+</a>
 
 ## License
 
