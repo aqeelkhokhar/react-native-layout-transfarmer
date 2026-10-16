@@ -229,3 +229,43 @@ describe('useCanvasTransform', () => {
     expect(result.current).toBe(first);
   });
 });
+
+describe('size parity', () => {
+  const board = { width: 375, height: 600 };
+  const emoji = [
+    { x: 155, y: 268, width: 64, height: 64 },
+    { x: 20, y: 20, width: 48, height: 48 },
+    { x: 307, y: 532, width: 48, height: 48 },
+    { x: 240, y: 420, width: 80, height: 80, zoomScale: 1.25 },
+  ];
+  const boxes = [
+    { width: 290, height: 464 },
+    { width: 688, height: 1100 },
+    { width: 749, height: 1198 },
+    { width: 388, height: 620 },
+  ];
+
+  it('puts every object at the same percentage of the board on any screen', () => {
+    const normalized = boxes.map((box) => {
+      const t = createViewportTransform(board, box, {
+        fit: 'contain',
+        anchor: 'center',
+      });
+      const w = board.width * t.scaleX;
+      const h = board.height * t.scaleY;
+      return t
+        .objects(emoji)
+        .map((e) => [
+          +(((e.x - t.offsetX + e.width / 2) / w) * 100).toFixed(6),
+          +(((e.y - t.offsetY + e.height / 2) / h) * 100).toFixed(6),
+          +((e.width / w) * 100).toFixed(6),
+        ]);
+    });
+    for (const result of normalized.slice(1)) {
+      expect(result).toEqual(normalized[0]);
+    }
+    // the target emoji centre is the middle of the board, as seen on device
+    expect(normalized[0]![0]![0]).toBeCloseTo(49.867, 2);
+    expect(normalized[0]![0]![1]).toBeCloseTo(50, 2);
+  });
+});

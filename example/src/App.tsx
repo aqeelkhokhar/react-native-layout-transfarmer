@@ -4,18 +4,22 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import CanvasScreen from './screens/CanvasScreen';
 import ConverterScreen from './screens/ConverterScreen';
+import ParityScreen from './screens/ParityScreen';
 import ResponsiveScreen from './screens/ResponsiveScreen';
 import { COLORS } from './styles';
 
 const TABS = [
   { key: 'responsive', title: 'Responsive', Screen: ResponsiveScreen },
   { key: 'canvas', title: 'Canvas', Screen: CanvasScreen },
+  { key: 'parity', title: 'Parity', Screen: ParityScreen },
   { key: 'converter', title: 'Converter', Screen: ConverterScreen },
 ] as const;
 
 export default function App() {
-  const [active, setActive] =
-    useState<(typeof TABS)[number]['key']>('responsive');
+  const [active, setActive] = useState<(typeof TABS)[number]['key']>(
+    (process.env.EXPO_PUBLIC_START_TAB as (typeof TABS)[number]['key']) ||
+      'responsive'
+  );
   const { Screen } = TABS.find((t) => t.key === active)!;
 
   return (
