@@ -25,7 +25,12 @@
       "package": "layouttransfarmer.example"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "experiments": {
+      "baseUrl": "/react-native-layout-transfarmer"
     }
   }
 }

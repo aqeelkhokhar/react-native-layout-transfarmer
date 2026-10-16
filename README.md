@@ -1,283 +1,287 @@
 # react-native-layout-transfarmer
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot1.png" alt="Screenshot 1" width="250" />
-  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot2.png" alt="Screenshot 2" width="250" />
-  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot4.png" alt="Screenshot 3" width="250" />
-  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot3.png" alt="Screenshot 4" width="250" />
-</div>
+[![npm version](https://img.shields.io/npm/v/react-native-layout-transfarmer.svg)](https://www.npmjs.com/package/react-native-layout-transfarmer)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-layout-transfarmer.svg)](https://www.npmjs.com/package/react-native-layout-transfarmer)
+[![CI](https://github.com/aqeelkhokhar/react-native-layout-transfarmer/actions/workflows/ci.yml/badge.svg)](https://github.com/aqeelkhokhar/react-native-layout-transfarmer/actions/workflows/ci.yml)
+[![types](https://img.shields.io/npm/types/react-native-layout-transfarmer.svg)](https://www.npmjs.com/package/react-native-layout-transfarmer)
+[![license](https://img.shields.io/npm/l/react-native-layout-transfarmer.svg)](LICENSE)
 
-Cross-device layout scaling and transformation utilities for React Native. Design once, scale everywhere.
+**Design once, scale everywhere.** Responsive scaling for React Native that keeps up with rotation, tablets, split screen and foldables, plus the transform math that canvas and editor apps need.
 
-The name is on purpose: _transfarmer_ is the published package name (not a typo of "transformer").
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/hero.gif" alt="One screen scaling smoothly while the window width changes from 320 to 760 pixels" width="420" />
+</p>
 
-## Problem It Solves
+- Pure JavaScript, **zero dependencies**, under 4 kB gzipped. Works in **Expo Go**, on web, iOS and Android.
+- Same names as `react-native-size-matters` (`scale`, `verticalScale`, `moderateScale`), so migrating is a find and replace.
+- Updates live. `useLayout()` re-renders on rotation, split screen, foldables and iPad window resize.
+- Cap tablets, control the OS font size, write styles at design size.
+- Canvas math nobody else ships: viewport transforms with `contain` and `cover`, and a full inverse for saving in design units.
+- Full TypeScript types. Tested with a 95 percent coverage gate.
 
-When building React Native apps, designers typically create mockups for a specific screen size (e.g., 375×667 for iPhone 8). However, your app runs on devices with vastly different screen dimensions - from small phones to large tablets. This creates several challenges:
+> The name is on purpose: _transfarmer_ is the published package name, not a typo of "transformer".
 
-- **Inconsistent layouts** across different screen sizes
-- **Manual calculations** for scaling fonts, padding, margins, and element dimensions
-- **Broken designs** when elements don't scale proportionally
-- **Time-consuming adjustments** for each screen size
-
-**react-native-layout-transfarmer** solves these problems by providing a comprehensive set of utilities to automatically scale your layouts from design dimensions to any target screen size.
-
-## Use Cases
-
-- **Responsive UI Components** - Scale cards, buttons, containers proportionally
-- **Font Scaling** - Maintain readable text across all device sizes
-- **Canvas/Editor Apps** - Transform objects (stickers, images, shapes) between different viewport sizes
-- **Design-to-Code** - Convert Figma/Sketch designs to pixel-perfect React Native layouts
-- **Multi-Device Support** - Single codebase that looks great on phones and tablets
-
-## Benefits
-
-- **Zero Dependencies** - Lightweight, pure JavaScript utilities
-- **TypeScript Support** - Full type definitions included
-- **Batch Operations** - Transform multiple objects in one call
-- **Flexible Scaling** - Horizontal, vertical, or uniform scaling options
-- **Aspect Ratio Preservation** - Maintain proportions automatically
-
-## Installation
+## Install
 
 ```sh
 npm install react-native-layout-transfarmer
-```
-
-or
-
-```sh
+# or
 yarn add react-native-layout-transfarmer
 ```
 
-## API Reference
+| React Native | Expo                   | New Architecture | Web |
+| ------------ | ---------------------- | ---------------- | --- |
+| 0.72 and up  | Expo Go and dev builds | yes (pure JS)    | yes |
 
-### Scaling Factors
+## Quick start
 
-#### `calculateScalingFactors(sourceWidth, sourceHeight, destinationWidth, destinationHeight)`
-
-Calculate scale factors for transforming from source to destination dimensions.
-
-```js
-import { calculateScalingFactors } from 'react-native-layout-transfarmer';
-
-const { scaleX, scaleY } = calculateScalingFactors(375, 667, 414, 896);
-// scaleX: 1.104, scaleY: 1.343
-```
-
-### Dimension Calculations
-
-#### `calculateProportionalHeight(sourceWidth, sourceHeight, destinationWidth)`
-
-Calculate height while maintaining aspect ratio.
-
-```js
-import { calculateProportionalHeight } from 'react-native-layout-transfarmer';
-
-// Design: 300×200 card, screen width: 350
-const cardHeight = calculateProportionalHeight(300, 200, 350);
-// Result: 233.33
-```
-
-#### `calculateProportionalWidth(sourceWidth, sourceHeight, destinationHeight)`
-
-Calculate width while maintaining aspect ratio.
-
-```js
-import { calculateProportionalWidth } from 'react-native-layout-transfarmer';
-
-const cardWidth = calculateProportionalWidth(300, 200, 250);
-// Result: 375
-```
-
-### Value Scaling
-
-#### `scaleValue(value, scale)`
-
-Scale any numeric value by a factor.
-
-```js
-import { scaleValue } from 'react-native-layout-transfarmer';
-
-const scaledPadding = scaleValue(16, 1.5);
-// Result: 24
-```
-
-#### `scaleHorizontal(value, sourceWidth, destinationWidth)`
-
-Scale a value horizontally based on width ratio.
-
-```js
-import { scaleHorizontal } from 'react-native-layout-transfarmer';
-
-const scaledMargin = scaleHorizontal(20, 375, 414);
-// Result: 22.08
-```
-
-#### `scaleVertical(value, sourceHeight, destinationHeight)`
-
-Scale a value vertically based on height ratio.
-
-```js
-import { scaleVertical } from 'react-native-layout-transfarmer';
-
-const scaledHeight = scaleVertical(100, 667, 896);
-// Result: 134.33
-```
-
-#### `scaleUniform(value, sourceWidth, sourceHeight, destinationWidth, destinationHeight)`
-
-Scale uniformly using the smaller scale factor (prevents overflow).
-
-```js
-import { scaleUniform } from 'react-native-layout-transfarmer';
-
-const scaledSize = scaleUniform(50, 375, 667, 414, 896);
-// Result: 55.2 (uses smaller scale factor)
-```
-
-### Font Scaling
-
-#### `calculateFontSize(sourceFontSize, scaleX)` (deprecated)
-
-Scale font sizes proportionally. Deprecated alias of `scaleValue`, removed in 2.0.
-
-```js
+```tsx
+import { Text, View } from 'react-native';
 import {
-  calculateFontSize,
-  calculateScalingFactors,
+  configureLayout,
+  moderateScale,
+  scaleFont,
+  useScaledStyles,
 } from 'react-native-layout-transfarmer';
 
-const { scaleX } = calculateScalingFactors(375, 667, 414, 896);
-const scaledFont = calculateFontSize(16, scaleX);
-// Result: 17.66
-```
+// Once, at app start. Use the size of your Figma frame.
+configureLayout({ designWidth: 375, designHeight: 812, maxScale: 1.5 });
 
-### Object Transformation
+// Write styles at design size. They scale for the screen and re-scale on rotation.
+const designStyles = {
+  card: {
+    width: 335,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: '#4F46E5',
+  },
+  title: { fontSize: 24, color: '#fff' },
+};
 
-#### `transformObject(sourceObject, scaleX, scaleY)`
-
-Transform a single object's position and dimensions.
-
-```js
-import {
-  transformObject,
-  calculateScalingFactors,
-} from 'react-native-layout-transfarmer';
-
-const { scaleX, scaleY } = calculateScalingFactors(375, 667, 414, 896);
-
-const button = { x: 20, y: 100, width: 335, height: 50 };
-const scaled = transformObject(button, scaleX, scaleY);
-// Result: { x: 22.08, y: 134.33, width: 369.84, height: 67.16 }
-```
-
-#### `batchTransformObjects(sourceObjects, scaleX, scaleY)`
-
-Transform multiple objects at once.
-
-```js
-import {
-  batchTransformObjects,
-  calculateScalingFactors,
-} from 'react-native-layout-transfarmer';
-
-const { scaleX, scaleY } = calculateScalingFactors(375, 667, 414, 896);
-
-const elements = [
-  { id: 'header', x: 0, y: 0, width: 375, height: 60 },
-  { id: 'card', x: 20, y: 80, width: 335, height: 200 },
-  { id: 'button', x: 20, y: 300, width: 335, height: 50 },
-];
-
-const scaledElements = batchTransformObjects(elements, scaleX, scaleY);
-```
-
-### Aspect Ratio
-
-#### `calculateAspectRatio(width, height)`
-
-Get the aspect ratio of dimensions.
-
-```js
-import { calculateAspectRatio } from 'react-native-layout-transfarmer';
-
-const ratio = calculateAspectRatio(1920, 1080);
-// Result: 1.778 (16:9)
-```
-
-#### `calculateDestinationDimensions(sourceWidth, sourceHeight, destinationWidth, destinationHeight)`
-
-Calculate dimensions that fit within destination while preserving aspect ratio.
-
-```js
-import { calculateDestinationDimensions } from 'react-native-layout-transfarmer';
-
-const result = calculateDestinationDimensions(1920, 1080, 400, 300);
-// Result: { width: 400, height: 225, isFullWidth: true }
-```
-
-## Complete Example
-
-```jsx
-import React from 'react';
-import { View, Text, useWindowDimensions } from 'react-native';
-import {
-  calculateScalingFactors,
-  calculateFontSize,
-  scaleValue,
-  batchTransformObjects,
-} from 'react-native-layout-transfarmer';
-
-const DESIGN_WIDTH = 375;
-const DESIGN_HEIGHT = 667;
-
-export default function ResponsiveScreen() {
-  const { width, height } = useWindowDimensions();
-
-  const { scaleX, scaleY } = calculateScalingFactors(
-    DESIGN_WIDTH,
-    DESIGN_HEIGHT,
-    width,
-    height
-  );
-
-  const elements = [{ id: 'card', x: 20, y: 100, width: 335, height: 200 }];
-
-  const scaledElements = batchTransformObjects(elements, scaleX, scaleY);
-  const card = scaledElements[0];
-
+export function Card() {
+  const styles = useScaledStyles(designStyles);
   return (
-    <View style={{ flex: 1, backgroundColor: '#0F172A' }}>
-      <Text
-        style={{
-          fontSize: calculateFontSize(24, scaleX),
-          padding: scaleValue(20, scaleX),
-          color: '#fff',
-        }}
-      >
-        Responsive Title
-      </Text>
-
-      <View
-        style={{
-          position: 'absolute',
-          left: card.x,
-          top: card.y,
-          width: card.width,
-          height: card.height,
-          backgroundColor: '#4F46E5',
-          borderRadius: scaleValue(12, scaleX),
-        }}
-      />
+    <View style={styles.card}>
+      <Text style={styles.title}>Looks right on every device</Text>
     </View>
   );
 }
+
+// Or scale single values.
+const gap = moderateScale(16);
+const font = scaleFont(18);
 ```
+
+## Why this library
+
+|                                                   | react-native-size-matters | **layout-transfarmer**              |
+| ------------------------------------------------- | ------------------------- | ----------------------------------- |
+| `scale`, `verticalScale`, `moderateScale`         | yes                       | **yes, same names**                 |
+| Values follow rotation and window resize          | computed once at import   | **read on every call, plus a hook** |
+| Tablet cap (`maxScale`)                           | no                        | **yes**                             |
+| OS font size control (respect, ignore, cap)       | no                        | **yes**                             |
+| Write a whole style sheet at design size          | no                        | **yes**                             |
+| Scale a fixed design block (`ScaledView`)         | no                        | **yes**                             |
+| Move objects between viewports (canvas, stickers) | no                        | **yes, with inverse**               |
+| Zero dependencies                                 | yes                       | **yes**                             |
+
+### Migrating from react-native-size-matters
+
+```diff
+-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
++import { scale, verticalScale, moderateScale } from 'react-native-layout-transfarmer';
+```
+
+The defaults match (design size 375 by 812, scaled by the shorter and longer screen side, `moderateScale` factor 0.5). The difference is that the values are read when you call them, so a component that renders again after a rotation gets fresh numbers.
+
+## Live scaling
+
+### `configureLayout(options)`
+
+Call once at app start. Only the keys you pass change.
+
+| Option             | Default       | What it does                                                                                                                                                               |
+| ------------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `designWidth`      | `375`         | Width of your design frame.                                                                                                                                                |
+| `designHeight`     | `812`         | Height of your design frame.                                                                                                                                               |
+| `scaleBy`          | `'shortSide'` | `'shortSide'` scales by the shorter side for widths and the longer side for heights, so portrait and landscape agree. `'window'` uses the current window width and height. |
+| `maxScale`         | none          | Upper limit for any scale factor. `1.5` keeps tablets calm.                                                                                                                |
+| `minScale`         | none          | Lower limit for any scale factor.                                                                                                                                          |
+| `fontScale`        | `'respect'`   | How `scaleFont` treats the OS font size. `'respect'` leaves it to `Text`, `'ignore'` cancels it, `'capped'` allows it up to `maxFontScale`.                                |
+| `maxFontScale`     | `1.3`         | Largest OS font scale that `'capped'` allows.                                                                                                                              |
+| `tabletBreakpoint` | `600`         | Shorter side in points from which `isTablet` is true.                                                                                                                      |
+
+`getLayoutConfig()` returns the active options and `resetLayoutConfig()` restores the defaults.
+
+### Functions
+
+These read the window when called. Call them while rendering.
+
+| Function                                    | Use for                                        |
+| ------------------------------------------- | ---------------------------------------------- |
+| `scale(size)`                               | widths, horizontal margins and padding, radius |
+| `verticalScale(size)`                       | heights, vertical margins and padding          |
+| `moderateScale(size, factor = 0.5)`         | most sizes, grows slower than `scale`          |
+| `moderateVerticalScale(size, factor = 0.5)` | the vertical version                           |
+| `scaleFont(size, factor = 0.5)`             | font sizes, honours the `fontScale` option     |
+
+`factor` `0` keeps the size, `1` is the same as `scale`.
+
+### `useLayout()`
+
+Returns the scaling functions for the current window and re-renders the component when the window changes.
+
+```tsx
+const { width, height, orientation, isLandscape, isTablet, scale, scaleFont } =
+  useLayout();
+```
+
+### Scaled styles
+
+`useScaledStyles(designStyles)` returns a memoized style sheet. Sizes that follow the width use `scale`, heights use `verticalScale`, text uses `scaleFont`. `flex`, `opacity`, `zIndex`, `borderWidth`, percent strings and colors are left alone. Shadow offsets and `translateX` and `translateY` are scaled too.
+
+```tsx
+const styles = useScaledStyles((layout) => ({
+  card: { width: layout.isTablet ? 480 : 335, padding: 16 },
+}));
+```
+
+Declare the factory outside the component, or wrap it in `useCallback`, to keep the memoization. Also available without a hook: `createScaledStyles(styles)` (scales once) and `scaleStyle(style)` (one style object).
+
+### `ScaledView`
+
+Lays its children out at a fixed design size, then scales the whole block to fit the space it gets. Good for posters, templates and anything with a fixed aspect ratio.
+
+```tsx
+<ScaledView
+  designWidth={300}
+  designHeight={200}
+  fit="contain"
+  style={{ flex: 1 }}
+>
+  <Poster />
+</ScaledView>
+```
+
+`fit` is `contain` (default), `cover`, `width` or `height`.
+
+### Safe area
+
+Scaling does not know about notches. Use `react-native-safe-area-context` for insets and keep them as they are, because insets are already real device points. Scale only your design values.
+
+## Canvas and editor tools
+
+Save your objects at one size (for example a 1080 by 1920 story) and draw them at any size.
+
+```tsx
+import { useCanvasTransform } from 'react-native-layout-transfarmer';
+
+const CANVAS = { width: 1080, height: 1920 };
+
+function Editor({ stickers, box }) {
+  // destination defaults to the window; here we pass the measured box
+  const t = useCanvasTransform(CANVAS, box, {
+    fit: 'contain',
+    anchor: 'center',
+  });
+  const placed = t.objects(stickers); // keeps id, rotation and your own fields
+
+  // A drag ends at screen coordinates, save it back in design units:
+  const saved = t.inverse.object(draggedSticker);
+}
+```
+
+`createViewportTransform(source, destination, { fit, anchor })` is the same without React. The result has `scaleX`, `scaleY`, `offsetX`, `offsetY`, `point`, `size`, `rect`, `object`, `objects` and `inverse.{point,size,rect,object}`.
+
+| `fit`               | Result                                        |
+| ------------------- | --------------------------------------------- |
+| `stretch` (default) | each axis scales on its own                   |
+| `contain`           | keeps the aspect ratio, centered, letterboxed |
+| `cover`             | keeps the aspect ratio, fills, crops          |
+
+`zoomScale` on an object multiplies its size only. `anchor: 'center'` zooms around the middle, the default keeps the top left corner.
+
+Rectangle helpers: `fitRect(source, container)`, `fillRect(source, container)` and `centerRect(size, container)`.
+
+## Pure math helpers
+
+Everything works with explicit sizes too, no screen needed.
+
+```ts
+import {
+  calculateScalingFactors,
+  calculateProportionalHeight,
+  calculateProportionalWidth,
+  calculateDestinationDimensions,
+  calculateAspectRatio,
+  scaleHorizontal,
+  scaleVertical,
+  scaleUniform,
+  scaleValue,
+  transformObject,
+  batchTransformObjects,
+} from 'react-native-layout-transfarmer';
+
+calculateScalingFactors(375, 667, 414, 896); // { scaleX: 1.104, scaleY: 1.343 }
+calculateProportionalHeight(300, 200, 350); // 233.33
+calculateDestinationDimensions(1920, 1080, 400, 300); // { width: 400, height: 225, isFullWidth: true }
+scaleUniform(50, 375, 667, 414, 896); // 55.2, the smaller factor, never overflows
+
+const { scaleX, scaleY } = calculateScalingFactors(375, 667, 414, 896);
+transformObject({ x: 20, y: 100, width: 335, height: 50 }, scaleX, scaleY);
+// { x: 22.08, y: 134.33, width: 369.84, height: 67.16 }
+batchTransformObjects(elements, scaleX, scaleY); // generic, keeps your fields and types
+```
+
+Invalid sizes (zero, negative, `NaN`) throw a `RangeError` in development and fall back to identity scaling in production, so a bad value never reaches a layout as `NaN`.
+
+Deprecated, removed in 2.0: `calculateHeightFromWidth`, `calculateWidthFromHeight` and `calculateFontSize`. See the [changelog](CHANGELOG.md) for the replacements.
+
+## Recipes
+
+**Responsive font that respects accessibility, up to a point**
+
+```ts
+configureLayout({ fontScale: 'capped', maxFontScale: 1.3 });
+const fontSize = scaleFont(16);
+```
+
+**Calm tablets**
+
+```ts
+configureLayout({ maxScale: 1.4 });
+```
+
+**Different layout on tablets**
+
+```tsx
+const { isTablet } = useLayout();
+return isTablet ? <TwoColumns /> : <OneColumn />;
+```
+
+**Sticker editor that survives rotation**
+
+Save in design units, render with `useCanvasTransform`, convert pointer positions back with `t.inverse.point`.
+
+## FAQ
+
+**Does it need native code?** No. Pure JavaScript on top of `Dimensions` and `PixelRatio`. It runs in Expo Go.
+
+**Does it work with the New Architecture?** Yes, nothing native is involved.
+
+**Why is `scale` the same in portrait and landscape?** By default the shorter side drives widths, like `react-native-size-matters`. Use `scaleBy: 'window'` if you want the real window width.
+
+**Do I have to re-render after a rotation?** Components that call `useLayout()` or `useScaledStyles()` re-render on their own. The plain functions read the window when called, so they are right whenever the component renders.
+
+**Is there a demo?** Run the `example` app. It has Responsive, Canvas and Converter screens. A web version is published at the repository's GitHub Pages site.
+
+## Feedback
+
+Missing something? Open a [discussion](https://github.com/aqeelkhokhar/react-native-layout-transfarmer/discussions) or an [issue](https://github.com/aqeelkhokhar/react-native-layout-transfarmer/issues). Every one gets a reply.
 
 ## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository.
+See the [contributing guide](CONTRIBUTING.md).
 
 ## Special Thanks
 
