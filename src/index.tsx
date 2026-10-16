@@ -1,4 +1,12 @@
 export * from './aspect';
 export * from './objects';
 export * from './scaling';
+export * from './rects';
+export * from './viewport';
+export * from './config';
+export * from './layout';
+export * from './useLayout';
+export * from './styles';
+export { ScaledView, type ScaledViewProps } from './ScaledView';
+export type { Scaler, Orientation } from './scaler';
 export type { Point, Rect, Size, TransformableObject } from './types';
