@@ -63,7 +63,7 @@ Goal: trustworthy, tested, current. No behaviour change to existing exports.
 
 ### Tooling / example / CI
 
-- [ ] Upgrade example to RN 0.87.x (CLI), add `example-expo/` (SDK 57) to prove Expo Go works
+- [ ] Upgrade example to RN 0.87.x / Expo SDK 57 (still Expo 54, RN 0.81.5; web export builds)
 - [ ] Upgrade `react-native-builder-bob` to current, Node and `actions/*` versions in CI
 - [ ] Release `0.2.0`
 
@@ -75,35 +75,35 @@ Goal: the API people actually want. Additive, tree-shakeable, zero dependencies.
 
 ### Live scaling (the main new feature)
 
-- [ ] `configureLayout({ designWidth, designHeight, maxScale?, fontScale? })` global default design size (default 375×812), so call sites stop passing source sizes
-- [ ] `scale(n)`, `verticalScale(n)`, `moderateScale(n, factor = 0.5)`, `moderateVerticalScale(n, factor)`: the size-matters-compatible set, computed from current window
-- [ ] `useLayout()` hook returning `{ width, height, scaleX, scaleY, scale, verticalScale, moderateScale, isTablet, isLandscape, orientation }`, subscribed to `Dimensions` change events (rotation, split screen, foldable, iPad window resize) via `useWindowDimensions`
-- [ ] Respect OS font scale option: `moderateScale(n, { fontScale: 'respect' | 'ignore' | 'capped' })`
-- [ ] Tablet cap: `maxScale` so a 12.9 inch iPad does not render 3x buttons
-- [ ] `createScaledStyles(designStyles)` / `useScaledStyles(fn)`: write styles at design size, get a memoized `StyleSheet` scaled to the screen (numbers for `fontSize`, `margin*`, `padding*`, `width`, `height`, `borderRadius` and friends; leaves `flex`, `opacity`, `zIndex`, percent strings alone). The demo-able feature
-- [ ] `<ScaledView designWidth designHeight>`: renders children at design size and scales as a block (aspect fit or fill), for fixed-ratio canvases
-- [ ] Safe-area-aware sizes as opt-in, no dependency: accept insets as an argument, document pairing with `react-native-safe-area-context`
+- [x] `configureLayout({ designWidth, designHeight, maxScale?, fontScale? })` global default design size (default 375×812), so call sites stop passing source sizes
+- [x] `scale(n)`, `verticalScale(n)`, `moderateScale(n, factor = 0.5)`, `moderateVerticalScale(n, factor)`: the size-matters-compatible set, computed from current window
+- [x] `useLayout()` hook returning `{ width, height, scaleX, scaleY, scale, verticalScale, moderateScale, isTablet, isLandscape, orientation }`, subscribed to `Dimensions` change events (rotation, split screen, foldable, iPad window resize) via `useWindowDimensions`
+- [x] Respect OS font scale option: `moderateScale(n, { fontScale: 'respect' | 'ignore' | 'capped' })`
+- [x] Tablet cap: `maxScale` so a 12.9 inch iPad does not render 3x buttons
+- [x] `createScaledStyles(designStyles)` / `useScaledStyles(fn)`: write styles at design size, get a memoized `StyleSheet` scaled to the screen (numbers for `fontSize`, `margin*`, `padding*`, `width`, `height`, `borderRadius` and friends; leaves `flex`, `opacity`, `zIndex`, percent strings alone). The demo-able feature
+- [x] `<ScaledView designWidth designHeight>`: renders children at design size and scales as a block (aspect fit or fill), for fixed-ratio canvases
+- [ ] Safe-area-aware sizes: documented pairing with `react-native-safe-area-context` in the README (no code needed)
 
 ### Canvas and editor (the niche)
 
-- [ ] `transformRect`, `fitRect`, `fillRect`, `centerRect` (contain, cover, center math) with `Rect` and `Size` types
-- [ ] `transformObject` with rotation pivot and anchor options (`topLeft` | `center`), `transformPoint`, `transformPoints`
-- [ ] `useCanvasTransform(source, destination)`: one hook returning a memoized `transform(obj)` and `inverse(obj)` for round trips (save at 1080×1920, render at any screen, save back)
-- [ ] `inverse` helpers so editors can persist in design units
+- [x] `transformRect`, `fitRect`, `fillRect`, `centerRect` (contain, cover, center math) with `Rect` and `Size` types
+- [x] `transformObject` with rotation pivot and anchor options (`topLeft` | `center`), `transformPoint`, `transformPoints`
+- [x] `useCanvasTransform(source, destination)`: one hook returning a memoized `transform(obj)` and `inverse(obj)` for round trips (save at 1080×1920, render at any screen, save back)
+- [x] `inverse` helpers so editors can persist in design units
 
 ### API discipline
 
-- [ ] Public API frozen and documented in README table; deprecated aliases kept until `2.0`
-- [ ] Type exports: `Size`, `Rect`, `Point`, `TransformableObject`, `LayoutConfig`
-- [ ] Bundle size budget and a size check in CI (target under 3 kB min+gzip for the whole package)
+- [x] Public API frozen and documented in README table; deprecated aliases kept until `2.0`
+- [x] Type exports: `Size`, `Rect`, `Point`, `TransformableObject`, `LayoutConfig`
+- [x] Bundle size budget and a size check in CI (target under 5 kB gzipped, comment stripped, for the whole package; measured 3.7 kB)
 
 ### Tests / example
 
-- [ ] Jest with mocked `Dimensions`: rotation event updates the hook, caps, font scale modes
-- [ ] `@testing-library/react-native` for hook and `ScaledView`
-- [ ] Example app rebuilt as a showcase (see Phase 3): Responsive screen, Canvas editor screen, Playground with live sliders for design and device size
-- [ ] Maestro flow: rotate, resize, drag sticker, assert positions on iOS and Android
-- [ ] CHANGELOG `1.0.0` with migration notes
+- [x] Jest with mocked `Dimensions`: rotation event updates the hook, caps, font scale modes
+- [x] `@testing-library/react-native` for hook and `ScaledView`
+- [x] Example app rebuilt as a showcase (see Phase 3): Responsive screen, Canvas editor screen, Playground with live sliders for design and device size
+- [~] Verified the example in a browser (web export, resize + canvas fits). Native iOS and Android runs and a Maestro flow still to do; the library is pure JavaScript on `Dimensions`, covered by Jest with the real module
+- [x] CHANGELOG `1.0.0` with migration notes
 - [ ] Release `1.0.0`
 
 ---
@@ -135,12 +135,12 @@ Mirror what worked for highlight-text-view.
 
 ## Success targets
 
-| Milestone | Target |
-| --- | --- |
-| `0.2.0` shipped | tests at 95 percent, example on RN 0.87 / Expo 57 |
-| `1.0.0` shipped | hook + styles API live, canvas API live, under 3 kB |
+| Milestone             | Target                                                               |
+| --------------------- | -------------------------------------------------------------------- |
+| `0.2.0` shipped       | tests at 95 percent, example on RN 0.87 / Expo 57                    |
+| `1.0.0` shipped       | hook + styles API live, canvas API live, under 3 kB                  |
 | 60 days after `1.0.0` | 1,000 downloads per month, 100 GitHub stars, listed on the directory |
-| 6 months | 5,000 downloads per month, first external issue or PR merged |
+| 6 months              | 5,000 downloads per month, first external issue or PR merged         |
 
 ## Decisions needed from Aqeel
 

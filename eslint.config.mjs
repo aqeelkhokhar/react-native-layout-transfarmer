@@ -24,6 +24,16 @@ export default defineConfig([
     },
   },
   {
-    ignores: ['node_modules/', 'lib/', 'coverage/'],
+    files: ['example/**'],
+    rules: { 'react-native/no-inline-styles': 'off' },
+  },
+  {
+    ignores: [
+      'node_modules/',
+      'lib/',
+      'coverage/',
+      'example/dist/',
+      'example/.expo/',
+    ],
   },
 ]);
