@@ -33,8 +33,14 @@ export default function App() {
   const [destWidth, setDestWidth] = useState(SOURCE_WIDTH.toString());
   const [destHeight, setDestHeight] = useState(SOURCE_HEIGHT.toString());
 
-  const destinationWidth = Math.max(50, parseInt(destWidth) || SOURCE_WIDTH);
-  const destinationHeight = Math.max(50, parseInt(destHeight) || SOURCE_HEIGHT);
+  const destinationWidth = Math.max(
+    50,
+    parseInt(destWidth, 10) || SOURCE_WIDTH
+  );
+  const destinationHeight = Math.max(
+    50,
+    parseInt(destHeight, 10) || SOURCE_HEIGHT
+  );
 
   const { scaleX, scaleY } = calculateScalingFactors(
     SOURCE_WIDTH,

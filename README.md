@@ -1,13 +1,15 @@
 # react-native-layout-transfarmer
 
 <div align="center">
-  <img src="https://cdn.jsdelivr.net/npm/react-native-layout-transfarmer@latest/screenshots/screenshot1.png" alt="Screenshot 1" width="250" />
-  <img src="https://cdn.jsdelivr.net/npm/react-native-layout-transfarmer@latest/screenshots/screenshot2.png" alt="Screenshot 2" width="250" />
-  <img src="https://cdn.jsdelivr.net/npm/react-native-layout-transfarmer@latest/screenshots/screenshot4.png" alt="Screenshot 3" width="250" />
-  <img src="https://cdn.jsdelivr.net/npm/react-native-layout-transfarmer@latest/screenshots/screenshot3.png" alt="Screenshot 4" width="250" />
+  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot1.png" alt="Screenshot 1" width="250" />
+  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot2.png" alt="Screenshot 2" width="250" />
+  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot4.png" alt="Screenshot 3" width="250" />
+  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/screenshot3.png" alt="Screenshot 4" width="250" />
 </div>
 
 Cross-device layout scaling and transformation utilities for React Native. Design once, scale everywhere.
+
+The name is on purpose: _transfarmer_ is the published package name (not a typo of "transformer").
 
 ## Problem It Solves
 
@@ -136,9 +138,9 @@ const scaledSize = scaleUniform(50, 375, 667, 414, 896);
 
 ### Font Scaling
 
-#### `calculateFontSize(sourceFontSize, scaleX)`
+#### `calculateFontSize(sourceFontSize, scaleX)` (deprecated)
 
-Scale font sizes proportionally.
+Scale font sizes proportionally. Deprecated alias of `scaleValue`, removed in 2.0.
 
 ```js
 import {
@@ -280,14 +282,6 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 ## Special Thanks
 
 Special thanks to **Sohail Muhabbat Ali** ([GitHub](https://github.com/sohail-mohabbatali)) for his invaluable contributions as an Engineering Manager in developing this package. His guidance and expertise were instrumental in bringing this project to fruition.
-
-## Support
-
-If you find this package helpful, consider buying me a coffee!
-
-<a href="https://www.buymeacoffee.com/yourname" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="160" />
-</a>
 
 ## License
 
