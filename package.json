@@ -1,7 +1,7 @@
 {
   "name": "react-native-layout-transfarmer",
   "version": "0.1.10",
-  "description": "Cross-device layout scaling and transformation utilities for React Native. ",
+  "description": "Responsive scaling for React Native that adapts to the screen, plus the layout transform math canvas and editor apps need. Pure JavaScript, zero dependencies, works in Expo Go.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -15,18 +15,6 @@
   "files": [
     "src",
     "lib",
-    "screenshots",
-    "android",
-    "ios",
-    "cpp",
-    "*.podspec",
-    "react-native.config.js",
-    "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
-    "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
@@ -44,7 +32,22 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "expo",
+    "responsive",
+    "scale",
+    "scaling",
+    "dimensions",
+    "screen-size",
+    "tablet",
+    "foldable",
+    "orientation",
+    "font-scale",
+    "aspect-ratio",
+    "canvas",
+    "layout",
+    "typescript",
+    "size-matters-alternative"
   ],
   "repository": {
     "type": "git",
@@ -84,8 +87,8 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": ">=18",
+    "react-native": ">=0.72"
   },
   "workspaces": [
     "example"
@@ -121,7 +124,21 @@
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
-    ]
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/__tests__/**",
+      "!src/types.ts",
+      "!src/index.tsx"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 95,
+        "branches": 95,
+        "functions": 95,
+        "lines": 95
+      }
+    }
   },
   "commitlint": {
     "extends": [
@@ -157,5 +174,9 @@
       "release-it"
     ],
     "version": "0.56.1"
-  }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false
 }

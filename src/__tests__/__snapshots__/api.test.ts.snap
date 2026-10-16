@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports the documented public API 1`] = `
+[
+  "applyObjectZoomScale",
+  "batchTransformObjects",
+  "calculateAspectRatio",
+  "calculateDestinationDimensions",
+  "calculateFontSize",
+  "calculateHeightFromWidth",
+  "calculateObjectTransformedValues",
+  "calculateProportionalHeight",
+  "calculateProportionalWidth",
+  "calculateScalingFactors",
+  "calculateWidthFromHeight",
+  "scaleHorizontal",
+  "scaleUniform",
+  "scaleValue",
+  "scaleVertical",
+  "transformObject",
+  "transformRotation",
+]
+`;
