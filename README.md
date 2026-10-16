@@ -34,6 +34,7 @@ Design tools give you one frame, devices give you hundreds of sizes. Hard coded 
 ## Try it
 
 - **In the browser.** [Live demo](https://aqeelkhokhar.github.io/react-native-layout-transfarmer/) with Responsive, Canvas, Parity and Converter screens. Resize the window and watch the numbers.
+- **Read the write up.** [Stop scaling fonts by hand: responsive React Native that survives rotation](https://dev.to/aqeel_ahmad_331bef29ba12a/stop-scaling-fonts-by-hand-responsive-react-native-that-survives-rotation-12eh) on dev.to.
 - **On a device.** Clone the repo, run `yarn` and `yarn example start`, then scan the QR code with Expo Go.
 
 ## Install
