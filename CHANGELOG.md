@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 (unreleased)
+## 1.0.0 (2026-10-16)
 
 Includes everything planned for 0.2.0, which was never published.
 

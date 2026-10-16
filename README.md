@@ -21,6 +21,21 @@
 
 > The name is on purpose: _transfarmer_ is the published package name, not a typo of "transformer".
 
+## The problem
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/problem.png" alt="A fixed 335 point card overflows a small phone and floats on a tablet, while layout-transfarmer scales it to every screen" width="760" />
+</p>
+
+Design tools give you one frame, devices give you hundreds of sizes. Hard coded numbers look right on one of them. This library scales your design values to the real screen, keeps doing it when the window changes, and gives editor apps the math to move objects between sizes.
+
+**Jump to** [Install](#install) · [Quick start](#quick-start) · [Why this library](#why-this-library) · [Verified on real screens](#verified-on-real-screens) · [Live scaling](#live-scaling) · [Canvas tools](#canvas-and-editor-tools) · [Math helpers](#pure-math-helpers) · [Recipes](#recipes) · [FAQ](#faq)
+
+## Try it
+
+- **In the browser.** [Live demo](https://aqeelkhokhar.github.io/react-native-layout-transfarmer/) with Responsive, Canvas, Parity and Converter screens. Resize the window and watch the numbers.
+- **On a device.** Clone the repo, run `yarn` and `yarn example start`, then scan the QR code with Expo Go.
+
 ## Install
 
 ```sh
@@ -187,7 +202,11 @@ Scaling does not know about notches. Use `react-native-safe-area-context` for in
 
 ## Canvas and editor tools
 
-Save your objects at one size (for example a 1080 by 1920 story) and draw them at any size.
+Save your objects at one size (for example a 1080 by 1920 story) and draw them at any size. The GIF below is the example app resizing its window with each `fit` mode. Rotation and zoom survive, and nothing is re-authored.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/canvas.gif" alt="Stickers on a 1080 by 1920 canvas drawn with contain, cover and stretch while the window width changes" width="420" />
+</p>
 
 ```tsx
 import { useCanvasTransform } from 'react-native-layout-transfarmer';
