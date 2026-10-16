@@ -112,16 +112,16 @@ Goal: the API people actually want. Additive, tree-shakeable, zero dependencies.
 
 Mirror what worked for highlight-text-view.
 
-- [ ] README rewrite: hero GIF (same layout on iPhone SE, iPhone Pro Max, iPad, rotated, foldable), above-the-fold install + 10 line usage, "Why this library" table versus size-matters / responsive-screen, migration snippet from size-matters (3 lines), recipes (responsive card, font scale, sticker editor, story template), typed props and functions table, FAQ
-- [ ] Social preview image (`docs/assets/social-preview.png`), GitHub description and 15 to 20 topics, align repo name with npm name
-- [ ] Interactive demo: web Playground on GitHub Pages or Snack (pure JS, so Expo Snack works, unlike highlight-text-view). Put the Snack link in the README top
+- [x] README rewrite: hero GIF (same layout on iPhone SE, iPhone Pro Max, iPad, rotated, foldable), above-the-fold install + 10 line usage, "Why this library" table versus size-matters / responsive-screen, migration snippet from size-matters (3 lines), recipes (responsive card, font scale, sticker editor, story template), typed props and functions table, FAQ
+- [x] Social preview image built (`docs/assets/social-preview.png`), GitHub description and topics set. Still manual: upload the image in Settings > General > Social preview
+- [x] Interactive demo: web build of the example deployed to GitHub Pages by `.github/workflows/pages.yml`
 - [ ] Submit to reactnative.directory and awesome-react-native
 - [ ] Blog post: "Stop scaling fonts by hand: responsive React Native that survives rotation" and "Sticker editor math in React Native" (dev.to + Medium, link back)
 - [ ] LinkedIn post for each release (image post, per the LinkedIn posts folder workflow)
 - [ ] Stack Overflow: answer evergreen questions (responsive font size, tablet scaling, orientation change, relative sizing) with a disclosed link
 - [ ] Reddit r/reactnative launch post once Snack is live (check subreddit rules first)
-- [ ] Issue and discussion templates, "good first issue" labels, CONTRIBUTING refresh, GitHub Discussions on
-- [ ] README badges: npm version, downloads, bundle size, CI, license, types
+- [x] Issue and discussion templates, "good first issue" labels, CONTRIBUTING refresh, GitHub Discussions on
+- [x] README badges: npm version, downloads, bundle size, CI, license, types
 - [ ] Pin the package on the GitHub profile; link from LinkedIn Featured and Projects (public naming, no NDA clients)
 
 ### User engagement loop
