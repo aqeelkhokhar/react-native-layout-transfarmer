@@ -102,6 +102,7 @@ export default function CanvasScreen() {
           margin: 16,
           backgroundColor: COLORS.cardDark,
           borderRadius: 16,
+          overflow: 'hidden',
         }}
         onLayout={(e) => {
           const { width, height } = e.nativeEvent.layout;
