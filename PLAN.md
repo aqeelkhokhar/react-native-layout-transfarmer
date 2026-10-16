@@ -102,7 +102,7 @@ Goal: the API people actually want. Additive, tree-shakeable, zero dependencies.
 - [x] Jest with mocked `Dimensions`: rotation event updates the hook, caps, font scale modes
 - [x] `@testing-library/react-native` for hook and `ScaledView`
 - [x] Example app rebuilt as a showcase (see Phase 3): Responsive screen, Canvas editor screen, Playground with live sliders for design and device size
-- [~] Verified the example in a browser (web export, resize + canvas fits). Native iOS and Android runs and a Maestro flow still to do; the library is pure JavaScript on `Dimensions`, covered by Jest with the real module
+- [x] Verified natively on 2026-10-16 in Expo Go (SDK 54): iPhone 17e and iPad Pro 13 simulators, Android API 37.1 emulator at 360x640 dp and resized live to 800x1280 and 1280x800 dp. See "Native parity verification" below. A Maestro flow is still optional
 - [x] CHANGELOG `1.0.0` with migration notes
 - [ ] Release `1.0.0`
 
@@ -156,3 +156,21 @@ Mirror what worked for highlight-text-view.
 3. `yarn release` (release-it: version, tag, npm publish, GitHub release)
 4. CHANGELOG.md is hand-written; GitHub release body is the matching `## <version>` section
 5. npm publish needs the owner's OTP
+
+---
+
+## Native parity verification (2026-10-16)
+
+Parity screen of the example app (`EXPO_PUBLIC_START_TAB=parity yarn example expo start`): a 375 x 600 board with 7 emoji at fixed design points, drawn with `useCanvasTransform` (`contain`, `anchor: 'center'`). Each device prints every emoji centre and size as a percentage of the board.
+
+| Device                          | Window      | Result                                                       |
+| ------------------------------- | ----------- | ------------------------------------------------------------ |
+| iPhone 17e sim (iOS 26)         | 390 x 844   | all 7 emoji identical percentages                            |
+| iPad Pro 13 sim                 | 1032 x 1376 | identical, and `maxScale` 1.6 caps the Responsive tab at 160 |
+| Android emulator (API 37.1)     | 360 x 640   | identical                                                    |
+| Same emulator, `wm size` tablet | 800 x 1280  | identical, updated live without reload                       |
+| Same emulator, landscape tablet | 1280 x 800  | identical, board letterboxed                                 |
+
+Responsive tab: Android phone `scale(100)` 96.0, `verticalScale(100)` 78.8, `scaleFont(16)` 15.7 (360/375 and 640/812); iPad `scale(100)` 160.0 (capped), `isTablet` yes.
+
+Notes: a dedicated 2560 x 1600 tablet AVD (`lt_tablet`) was created but not booted; the tablet sizes came from resizing the running phone emulator, which also exercises live window changes. The iPhone UI agent timed out so the iPhone numbers were read from the on screen readout, not the accessibility tree.

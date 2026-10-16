@@ -94,6 +94,22 @@ const font = scaleFont(18);
 
 The defaults match (design size 375 by 812, scaled by the shorter and longer screen side, `moderateScale` factor 0.5). The difference is that the values are read when you call them, so a component that renders again after a rotation gets fresh numbers.
 
+## Verified on real screens
+
+The example app has a Parity screen. The same 375 by 600 board, with emoji at fixed design points, is drawn with `useCanvasTransform` on a small phone, a large tablet and everything between. Each emoji lands at the same percentage of the board and keeps the same relative size. Measured in the running apps (Expo Go, SDK 54):
+
+![Same board on iPhone, iPad, Android phone and Android tablet](https://raw.githubusercontent.com/aqeelkhokhar/react-native-layout-transfarmer/main/docs/assets/parity.png)
+
+| Device                                           | Window      | Board      | 🎯 centre and size  |
+| ------------------------------------------------ | ----------- | ---------- | ------------------- |
+| iPhone 17e simulator                             | 390 x 844   | 374 x 598  | 49.9%, 50.0%, 17.1% |
+| iPad Pro 13 simulator                            | 1032 x 1376 | 749 x 1198 | 49.9%, 50.0%, 17.1% |
+| Android phone emulator                           | 360 x 640   | 290 x 464  | 49.9%, 50.0%, 17.1% |
+| Android tablet size (same emulator resized live) | 800 x 1280  | 688 x 1100 | 49.9%, 50.0%, 17.1% |
+| Android landscape tablet size                    | 1280 x 800  | 388 x 620  | 49.9%, 50.0%, 17.1% |
+
+The other six emoji match to the same digit on every device. The Android window was resized while the app was running, and it re-laid itself out with no reload.
+
 ## Live scaling
 
 ### `configureLayout(options)`
